@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WINTEMP AI Workbench Preview</title>
+    <style>
+      :root {
+        --orange: #ea580c;
+        --orange-soft: #fff7ed;
+        --slate-50: #f8fafc;
+        --slate-100: #f1f5f9;
+        --slate-200: #e2e8f0;
+        --slate-500: #64748b;
+        --slate-600: #475569;
+        --slate-900: #0f172a;
+        --slate-950: #020617;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(circle at top left, rgba(234, 88, 12, 0.08), transparent 520px), var(--slate-50);
+        color: var(--slate-950);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        min-height: 100vh;
+        padding: 32px;
+      }
+
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-bottom: 1px solid var(--slate-200);
+        padding-bottom: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        background: var(--orange);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 20px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--slate-500);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: 28px;
+      }
+
+      .badge {
+        border: 1px solid #fed7aa;
+        background: var(--orange-soft);
+        color: #c2410c;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 420px;
+        gap: 32px;
+        padding: 40px 0;
+      }
+
+      .hero h2 {
+        max-width: 860px;
+        font-size: 40px;
+        line-height: 1.15;
+        margin-bottom: 18px;
+      }
+
+      .hero p {
+        max-width: 760px;
+        color: var(--slate-600);
+        line-height: 1.7;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        border: 1px solid var(--slate-200);
+        background: white;
+        border-radius: 8px;
+        padding: 16px;
+        align-self: start;
+      }
+
+      .stat {
+        background: var(--slate-50);
+        border-radius: 8px;
+        padding: 16px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 26px;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 8px;
+        color: var(--slate-500);
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 600;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .card,
+      .panel {
+        border: 1px solid var(--slate-200);
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      }
+
+      .card {
+        padding: 24px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        border-color: #fed7aa;
+      }
+
+      .card .num {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--orange-soft);
+        color: #c2410c;
+        font-weight: 800;
+      }
+
+      .card h3 {
+        margin: 22px 0 12px;
+        font-size: 20px;
+      }
+
+      .card p {
+        color: var(--slate-600);
+        line-height: 1.7;
+        font-size: 14px;
+      }
+
+      .workspace {
+        display: none;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 24px;
+        margin-top: 28px;
+      }
+
+      .workspace.active {
+        display: grid;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--slate-900);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid var(--slate-200);
+        border-radius: 8px;
+        background: var(--slate-50);
+        padding: 12px 14px;
+        font: inherit;
+        color: var(--slate-950);
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 18px;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .primary {
+        background: var(--orange);
+        color: white;
+      }
+
+      .secondary {
+        border: 1px solid var(--slate-200);
+        background: white;
+        color: var(--slate-900);
+      }
+
+      .output {
+        min-height: 520px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: var(--slate-900);
+        color: white;
+        padding: 18px;
+        white-space: pre-wrap;
+        overflow: auto;
+        line-height: 1.65;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 14px;
+      }
+
+      .dark {
+        background: var(--slate-950);
+        color: white;
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 1100px) {
+        .hero,
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="wrap">
+        <header>
+          <div class="brand">
+            <div class="logo">W</div>
+            <div>
+              <p class="eyebrow">WINTEMP Brand Operations</p>
+              <h1>WINTEMP AI Workbench</h1>
+            </div>
+          </div>
+          <div class="badge">Standalone Preview</div>
+        </header>
+
+        <section class="hero">
+          <div>
+            <p class="eyebrow">B2B SaaS Dashboard</p>
+            <h2>面向品牌运营、社媒内容、说明书图示和产品营销图的内部 AI 工作台。</h2>
+            <p>这是一个免安装预览页面，可以直接双击打开。正式 Next.js 项目仍在同一个文件夹里，安装 Node.js 后可以用 npm run dev 启动。</p>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>4</strong><span>First Release Agents</span></div>
+            <div class="stat"><strong>Mock</strong><span>API Integration</span></div>
+            <div class="stat"><strong>HTML</strong><span>Preview Mode</span></div>
+          </div>
+        </section>
+
+        <section>
+          <p class="eyebrow">Agent Library</p>
+          <h2>第一版 Agent</h2>
+          <div class="cards" id="cards"></div>
+        </section>
+
+        <section class="workspace" id="workspace">
+          <div class="panel">
+            <p class="eyebrow">Input Form</p>
+            <h2 id="agentTitle">任务信息</h2>
+            <div id="form"></div>
+            <div class="toolbar">
+              <button class="primary" id="generate">Generate Prompt</button>
+              <button class="secondary" id="reset">Reset</button>
+            </div>
+          </div>
+          <div class="panel dark">
+            <p class="eyebrow">Prompt Output</p>
+            <h2>结构化 Prompt</h2>
+            <div class="toolbar" style="margin-bottom: 12px">
+              <button class="secondary" id="copy">Copy</button>
+            </div>
+            <div class="output" id="output">选择一个 Agent，填写表单后生成 Prompt。</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const agents = [
+        {
+          title: "社媒运营数据分析 Agent",
+          desc: "用于社媒数据收集、统计、计算、分析和运营建议生成。",
+          fields: ["社媒平台", "分析周期", "核心数据", "运营目标"],
+          prompt: "请作为 WINTEMP 社媒运营数据分析 Agent，基于平台、周期、核心数据和运营目标，输出关键数据概览、内容表现分析、问题诊断、运营建议和下一步数据补充清单。"
+        },
+        {
+          title: "社媒内容策略与创意规划 Agent",
+          desc: "用于账号定位、内容规划、参考账号拆解和创意输出。",
+          fields: ["账号定位", "目标受众", "参考账号或竞品", "内容目标", "规划周期"],
+          prompt: "请作为 WINTEMP 社媒内容策略与创意规划 Agent，输出账号定位、内容支柱、参考账号拆解框架、创意选题、发布节奏和评估指标。"
+        },
+        {
+          title: "安装步骤图生成 Agent",
+          desc: "用于根据安装步骤文档生成说明书安装示意图需求和 AI 绘图提示词。",
+          fields: ["产品名称", "安装步骤文档", "图示风格", "期望图片数量"],
+          prompt: "请作为 WINTEMP 安装步骤图生成 Agent，拆解安装步骤，输出每张图的动作、零件、视角、标注、中文提示词、英文提示词和负面提示词。"
+        },
+        {
+          title: "产品营销场景图生成 Agent",
+          desc: "用于根据产品实拍图和场景需求生成营销场景图提示词，并强调保持产品外观一致。",
+          fields: ["产品外观描述", "目标场景", "营销用途", "画面氛围", "必须保持或避免"],
+          prompt: "请作为 WINTEMP 产品营销场景图生成 Agent，基于产品实拍图生成营销场景图提示词。必须强调保持产品外观、颜色、比例、logo、按钮和屏幕布局一致。"
+        }
+      ];
+
+      let current = null;
+
+      const cards = document.querySelector("#cards");
+      const workspace = document.querySelector("#workspace");
+      const form = document.querySelector("#form");
+      const output = document.querySelector("#output");
+      const agentTitle = document.querySelector("#agentTitle");
+
+      agents.forEach((agent, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<div class="num">${String(index + 1).padStart(2, "0")}</div><h3>${agent.title}</h3><p>${agent.desc}</p><strong style="color:#c2410c">打开 Agent -&gt;</strong>`;
+        card.onclick = () => openAgent(index);
+        cards.appendChild(card);
+      });
+
+      function openAgent(index) {
+        current = agents[index];
+        agentTitle.textContent = current.title;
+        form.innerHTML = "";
+        output.textContent = "填写左侧表单后生成结构化 Prompt。";
+        current.fields.forEach((field, fieldIndex) => {
+          const label = document.createElement("label");
+          label.textContent = field;
+          const input = document.createElement(fieldIndex >= 2 ? "textarea" : "input");
+          input.dataset.field = field;
+          input.placeholder = "请输入" + field;
+          label.appendChild(input);
+          form.appendChild(label);
+        });
+        workspace.classList.add("active");
+        workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      document.querySelector("#generate").onclick = () => {
+        if (!current) return;
+        const values = [...form.querySelectorAll("input, textarea")]
+          .map((item) => `- ${item.dataset.field}：${item.value || "未填写"}`)
+          .join("\n");
+        output.textContent = `${current.prompt}\n\n## 输入信息\n${values}\n\n## 输出要求\n- 使用中文。\n- 先给结论，再展开细节。\n- 不连接真实 API，不编造后台数据。\n- 输出要适合 WINTEMP 品牌运营部内部执行。`;
+      };
+
+      document.querySelector("#reset").onclick = () => {
+        form.querySelectorAll("input, textarea").forEach((item) => (item.value = ""));
+        output.textContent = "填写左侧表单后生成结构化 Prompt。";
+      };
+
+      document.querySelector("#copy").onclick = async () => {
+        await navigator.clipboard.writeText(output.textContent);
+        alert("已复制");
+      };
+    </script>
+  </body>
+</html>
