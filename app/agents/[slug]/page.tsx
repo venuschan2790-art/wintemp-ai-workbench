@@ -33,7 +33,13 @@ export function generateMetadata({ params }: AgentPageProps) {
 
 export default function AgentPage({ params }: AgentPageProps) {
   const agent = getAgent(params.slug);
-  const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY);
+  const aiProvider =
+    process.env.AI_PROVIDER?.trim().toLowerCase() === "moyu"
+      ? "魔芋 API"
+      : "OpenAI API";
+  const hasAIKey = Boolean(
+    process.env.MOYU_API_KEY || process.env.OPENAI_API_KEY || process.env.AI_API_KEY
+  );
 
   if (!agent) {
     notFound();
@@ -85,15 +91,15 @@ export default function AgentPage({ params }: AgentPageProps) {
                   <span className="font-semibold text-wintemp-700">Enabled</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span>OpenAI API</span>
+                  <span>{aiProvider}</span>
                   <span
                     className={
-                      hasOpenAIKey
+                      hasAIKey
                         ? "font-semibold text-wintemp-700"
                         : "font-semibold text-slate-400"
                     }
                   >
-                    {hasOpenAIKey ? "Ready" : "Not Connected"}
+                    {hasAIKey ? "Ready" : "Not Connected"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">

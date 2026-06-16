@@ -38,7 +38,7 @@ export type AgentConfig = {
 };
 
 export const CURRENT_VERSION_NOTE =
-  "当前版本支持两种用法：Generate Prompt 只生成结构化 Prompt；Call AI 会调用已配置的 OpenAI API 并直接返回 AI 结果。";
+  "当前版本支持两种用法：Generate Prompt 只生成结构化 Prompt；Call AI 会调用已配置的 AI API 并直接返回 AI 结果。";
 
 const value = (
   values: Record<string, string>,

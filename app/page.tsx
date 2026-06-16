@@ -9,7 +9,13 @@ const stats = [
 ];
 
 export default function HomePage() {
-  const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY);
+  const aiProvider =
+    process.env.AI_PROVIDER?.trim().toLowerCase() === "moyu"
+      ? "魔芋 API"
+      : "OpenAI API";
+  const hasAIKey = Boolean(
+    process.env.MOYU_API_KEY || process.env.OPENAI_API_KEY || process.env.AI_API_KEY
+  );
 
   return (
     <main className="min-h-screen px-8 py-7">
@@ -55,7 +61,7 @@ export default function HomePage() {
                 Wintemp Orange System
               </span>
               <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-wintemp-ink shadow-sm">
-                {hasOpenAIKey ? "OpenAI API Ready" : "API Key Needed"}
+                {hasAIKey ? `${aiProvider} Ready` : "API Key Needed"}
               </span>
               <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-wintemp-ink shadow-sm">
                 Internal Dashboard

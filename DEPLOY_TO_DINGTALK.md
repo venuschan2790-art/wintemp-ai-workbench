@@ -79,13 +79,27 @@ https://vercel.com/
 3. 点击 `Add New Project`。
 4. 选择 `wintemp-ai-workbench` 这个 GitHub 仓库。
 5. Framework Preset 选择 `Next.js`。
-6. 在 Environment Variables 添加：
+6. 如果使用 OpenAI，在 Environment Variables 添加：
 
 ```text
+AI_PROVIDER=openai
 OPENAI_API_KEY=你的有额度 API Key
 OPENAI_MODEL=gpt-4o-mini
 OPENAI_BASE_URL=https://api.openai.com/v1
 ```
+
+如果使用魔芋 API，在 Environment Variables 添加：
+
+```text
+AI_PROVIDER=moyu
+MOYU_API_KEY=你的魔芋 API Key
+MOYU_MODEL=魔芋后台提供的模型名
+MOYU_BASE_URL=魔芋后台提供的 API Base URL
+MOYU_API_FORMAT=chat
+MOYU_API_PATH=/chat/completions
+```
+
+如果魔芋文档给出的接口路径不是 `/chat/completions`，以魔芋文档为准修改 `MOYU_API_PATH`。
 
 如果部署服务器访问 OpenAI 也需要代理，再添加：
 

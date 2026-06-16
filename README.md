@@ -55,9 +55,9 @@ http://localhost:3000
 
 注意：不要输入 `www.localhost.com:3000`。本地开发地址必须是 `http://localhost:3000`。
 
-## 接入 OpenAI API
+## 接入 AI API
 
-项目已经内置服务端接口 `/api/generate`，用于调用 OpenAI Responses API。API Key 只放在本地环境变量中，不会暴露到浏览器。
+项目已经内置服务端接口 `/api/generate`，可以调用 OpenAI API，也可以切换到魔芋这类兼容 Chat Completions 的 API。API Key 只放在本地环境变量或 Vercel Environment Variables 中，不会暴露到浏览器。
 
 1. 在项目根目录创建 `.env.local`：
 
@@ -66,23 +66,38 @@ cd "/Users/WINTEMP-Doris/Documents/温腾AI工作台/wintemp-ai-workbench"
 cp .env.example .env.local
 ```
 
-2. 打开 `.env.local`，把 `sk-your-api-key-here` 替换为你的 OpenAI API Key：
+2. 如果使用 OpenAI，打开 `.env.local`，填写：
 
 ```text
+AI_PROVIDER=openai
 OPENAI_API_KEY=你的 OpenAI API Key
-OPENAI_MODEL=gpt-5.5
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
-3. 修改 `.env.local` 后，需要重启开发服务：
+3. 如果使用魔芋 API，打开 `.env.local`，填写魔芋后台提供的接口信息：
+
+```text
+AI_PROVIDER=moyu
+MOYU_API_KEY=你的魔芋 API Key
+MOYU_MODEL=魔芋后台提供的模型名
+MOYU_BASE_URL=魔芋后台提供的 API Base URL
+MOYU_API_FORMAT=chat
+MOYU_API_PATH=/chat/completions
+```
+
+如果魔芋文档给出的完整接口不是 `/chat/completions`，把 `MOYU_API_PATH` 改成文档里的路径。
+
+4. 修改 `.env.local` 后，需要重启开发服务：
 
 ```bash
 npm run dev
 ```
 
-4. 页面中每个 Agent 都有两个主要按钮：
+5. 页面中每个 Agent 都有两个主要按钮：
 
 - `Generate Prompt`：只生成结构化 Prompt，不调用 AI。
-- `Call AI`：生成 Prompt 并调用 OpenAI API，返回 AI 结果。
+- `Call AI`：生成 Prompt 并调用已配置的 AI API，返回 AI 结果。
 
 也可以直接双击项目里的 `start-macos.command`。如果系统提示没有权限，请在 Terminal 执行：
 
