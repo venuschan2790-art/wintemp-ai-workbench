@@ -80,13 +80,13 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 ```text
 AI_PROVIDER=moyu
 MOYU_API_KEY=你的魔芋 API Key
-MOYU_MODEL=魔芋后台提供的模型名
-MOYU_BASE_URL=魔芋后台提供的 API Base URL
+MOYU_MODEL=gpt-4o
+MOYU_BASE_URL=https://www.moyu.info
 MOYU_API_FORMAT=chat
-MOYU_API_PATH=/chat/completions
+MOYU_API_PATH=/pg/chat/completions
 ```
 
-如果魔芋文档给出的完整接口不是 `/chat/completions`，把 `MOYU_API_PATH` 改成文档里的路径。
+如果魔芋后台给你指定了其他模型名，把 `MOYU_MODEL` 改成后台可用的模型名。
 
 4. 修改 `.env.local` 后，需要重启开发服务：
 

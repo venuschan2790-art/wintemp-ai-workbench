@@ -93,13 +93,13 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 ```text
 AI_PROVIDER=moyu
 MOYU_API_KEY=你的魔芋 API Key
-MOYU_MODEL=魔芋后台提供的模型名
-MOYU_BASE_URL=魔芋后台提供的 API Base URL
+MOYU_MODEL=gpt-4o
+MOYU_BASE_URL=https://www.moyu.info
 MOYU_API_FORMAT=chat
-MOYU_API_PATH=/chat/completions
+MOYU_API_PATH=/pg/chat/completions
 ```
 
-如果魔芋文档给出的接口路径不是 `/chat/completions`，以魔芋文档为准修改 `MOYU_API_PATH`。
+如果魔芋后台给你指定了其他模型名，把 `MOYU_MODEL` 改成后台可用的模型名。
 
 如果部署服务器访问 OpenAI 也需要代理，再添加：
 

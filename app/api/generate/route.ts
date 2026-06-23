@@ -72,7 +72,7 @@ const getProviderConfig = (): ProviderConfig => {
       baseURL,
       endpointPath:
         process.env.MOYU_API_PATH?.trim() ||
-        (apiFormat === "responses" ? "/responses" : "/chat/completions"),
+        (apiFormat === "responses" ? "/responses" : "/pg/chat/completions"),
       model:
         process.env.MOYU_MODEL?.trim() ||
         process.env.AI_MODEL?.trim() ||
