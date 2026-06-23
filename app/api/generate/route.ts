@@ -17,8 +17,32 @@ type ProviderConfig = {
 };
 
 const extractOutputText = (data: any) => {
+  const normalizeText = (value: unknown): string => {
+    if (typeof value === "string") {
+      return value.trim();
+    }
+
+    if (Array.isArray(value)) {
+      return value.map(normalizeText).filter(Boolean).join("\n").trim();
+    }
+
+    if (value && typeof value === "object") {
+      const record = value as Record<string, unknown>;
+
+      return normalizeText(
+        record.text ??
+          record.content ??
+          record.value ??
+          record.output_text ??
+          record.reasoning_content
+      );
+    }
+
+    return "";
+  };
+
   if (typeof data.output_text === "string") {
-    return data.output_text;
+    return data.output_text.trim();
   }
 
   const textParts =
@@ -34,21 +58,20 @@ const extractOutputText = (data: any) => {
     return responsesText;
   }
 
-  const chatContent = data.choices?.[0]?.message?.content;
+  const firstChoice = data.choices?.[0] ?? data.data?.choices?.[0];
+  const chatContent =
+    firstChoice?.message?.content ??
+    firstChoice?.message?.reasoning_content ??
+    firstChoice?.delta?.content ??
+    firstChoice?.text;
 
-  if (typeof chatContent === "string") {
-    return chatContent;
+  const chatText = normalizeText(chatContent);
+
+  if (chatText) {
+    return chatText;
   }
 
-  if (Array.isArray(chatContent)) {
-    return chatContent
-      .map((content) => content.text)
-      .filter((text) => typeof text === "string")
-      .join("\n")
-      .trim();
-  }
-
-  return "";
+  return normalizeText(data.data ?? data.result ?? data.response ?? data.answer);
 };
 
 const getProviderConfig = (): ProviderConfig => {
