@@ -88,6 +88,16 @@ MOYU_API_PATH=/pg/chat/completions
 
 如果魔芋后台给你指定了其他模型名，把 `MOYU_MODEL` 改成后台可用的模型名。
 
+产品营销场景图 Agent 支持直接出图，需要再配置图片模型：
+
+```text
+IMAGE_MODEL=jimeng_t2i_v31
+IMAGE_BASE_URL=https://www.moyu.info
+IMAGE_API_PATH=/pg/images/generations
+```
+
+如果魔芋后台显示的图片模型不是 `jimeng_t2i_v31`，把 `IMAGE_MODEL` 改成后台可用的图片生成模型名，例如即梦文生图模型。当前版本先支持文生图；上传产品图会参与 Prompt 描述，后续可继续升级为图生图/参考图保持产品外观。
+
 4. 修改 `.env.local` 后，需要重启开发服务：
 
 ```bash

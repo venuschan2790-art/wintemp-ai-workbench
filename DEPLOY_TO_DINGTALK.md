@@ -101,6 +101,16 @@ MOYU_API_PATH=/pg/chat/completions
 
 如果魔芋后台给你指定了其他模型名，把 `MOYU_MODEL` 改成后台可用的模型名。
 
+如果要启用产品营销场景图 Agent 的直接出图功能，再添加：
+
+```text
+IMAGE_MODEL=jimeng_t2i_v31
+IMAGE_BASE_URL=https://www.moyu.info
+IMAGE_API_PATH=/pg/images/generations
+```
+
+如果魔芋后台的图片生成模型名不同，以后台“图片生成模型”列表里的模型名为准修改 `IMAGE_MODEL`。
+
 如果部署服务器访问 OpenAI 也需要代理，再添加：
 
 ```text
