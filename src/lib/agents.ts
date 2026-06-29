@@ -273,7 +273,7 @@ export const agents: AgentConfig[] = [
     title: "社媒内容策略与创意规划 Agent",
     shortTitle: "内容策略规划",
     description:
-      "用于帮助品牌运营人员梳理不同市场和平台的账号定位，根据 WINTEMP 产品、市场目标、社媒规划表和参考账号，生成月度内容策略、周度选题、单条内容创意和平台适配建议。",
+      "用于帮助品牌运营人员围绕南美与中东 B 端市场，基于 WINTEMP 产品、渠道客户需求和社媒平台特点，生成招商向内容策略、图片/文字创意方向和中英文社媒帖子文案。",
     category: "Content Planning",
     badge: "IDEA",
     outputTitle: "内容策略规划 Prompt",
@@ -284,7 +284,7 @@ export const agents: AgentConfig[] = [
         type: "select",
         placeholder: "选择目标市场",
         required: true,
-        options: ["北美", "拉美", "中东", "全球品牌账号"]
+        options: ["南美 B 端", "中东 B 端"]
       },
       {
         name: "accountType",
@@ -292,7 +292,7 @@ export const agents: AgentConfig[] = [
         type: "select",
         placeholder: "选择账号类型",
         required: true,
-        options: ["C 端账号", "B 端账号", "品牌账号"]
+        options: ["B 端账号", "品牌招商账号", "经销商支持账号"]
       },
       {
         name: "platforms",
@@ -300,7 +300,7 @@ export const agents: AgentConfig[] = [
         type: "multiselect",
         placeholder: "选择平台",
         required: true,
-        options: ["Facebook", "Instagram", "Pinterest", "YouTube", "TikTok", "LinkedIn"]
+        options: ["Facebook", "Instagram", "Pinterest", "LinkedIn"]
       },
       {
         name: "products",
@@ -308,14 +308,15 @@ export const agents: AgentConfig[] = [
         type: "multiselect",
         placeholder: "选择目标产品",
         required: true,
-        options: ["热水器", "开水器", "冰水机", "气泡冰水机", "户外燃气热水器", "全产品线"]
-      },
-      {
-        name: "contentMonth",
-        label: "内容月份",
-        type: "month",
-        placeholder: "例如 2026 年 7 月",
-        required: true
+        options: [
+          "热水器",
+          "开水器",
+          "气泡冰水机",
+          "台上式冰饮机",
+          "台下式纯冰水机",
+          "四合一组合装",
+          "六合一组合装"
+        ]
       },
       {
         name: "planningThemes",
@@ -339,25 +340,30 @@ export const agents: AgentConfig[] = [
         required: true
       },
       {
-        name: "needReference",
-        label: "是否需要参考账号",
+        name: "outputContentType",
+        label: "输出内容类型",
         type: "radio",
-        placeholder: "选择是否需要",
+        placeholder: "选择输出图片还是文字",
         required: true,
-        options: ["需要", "不需要"]
-      },
-      {
-        name: "referenceAccounts",
-        label: "已有参考账号",
-        type: "textarea",
-        placeholder: "可填写想模仿或分析的账号链接/名称"
+        options: ["图片内容方向", "文字内容方向", "图片 + 文字组合"]
       },
       {
         name: "stylePreference",
         label: "内容风格偏好",
         type: "multiselect",
         placeholder: "选择风格偏好",
-        options: ["专业 B2B", "家庭生活方式", "高端简约", "真实摄影", "教育科普", "招商合作"]
+        options: [
+          "国际化 B2B",
+          "招商合作",
+          "经销商痛点",
+          "产品卖点教育",
+          "工程项目案例",
+          "餐饮酒店应用",
+          "高端简约视觉",
+          "真实场景摄影",
+          "数据对比说明",
+          "售后与安装支持"
+        ]
       },
       {
         name: "contentCount",
@@ -380,12 +386,12 @@ export const agents: AgentConfig[] = [
         placeholder: "来自销售或社媒询盘的客户问题"
       },
       {
-        name: "outputLanguage",
-        label: "输出语言",
+        name: "postCopyLanguage",
+        label: "社媒帖子文案语言",
         type: "select",
-        placeholder: "选择输出语言",
+        placeholder: "选择文案语言",
         required: true,
-        options: ["中文", "英文", "西语", "阿语方向", "中英双语"]
+        options: ["中英文"]
       },
       {
         name: "notes",
@@ -395,57 +401,59 @@ export const agents: AgentConfig[] = [
       }
     ],
     defaults: {
-      targetMarket: "北美",
-      accountType: "C 端账号",
-      platforms: "Facebook, Instagram, Pinterest",
-      products: "热水器, 全产品线",
-      operationGoals: "提升曝光, 提升互动",
-      needReference: "需要",
-      stylePreference: "家庭生活方式, 真实摄影, 教育科普",
+      targetMarket: "中东 B 端",
+      accountType: "品牌招商账号",
+      platforms: "Facebook, Instagram, LinkedIn",
+      products: "热水器, 开水器",
+      operationGoals: "提升曝光, 获取询盘, 招商合作",
+      outputContentType: "图片 + 文字组合",
+      stylePreference: "国际化 B2B, 招商合作, 产品卖点教育, 真实场景摄影",
       contentCount: "10",
       linkInquiry: "否",
-      outputLanguage: "中文"
+      postCopyLanguage: "中英文"
     },
     buildPrompt: (values) =>
       [
-        "你是 WINTEMP 品牌运营部的社媒内容策略与创意规划 Agent。请根据市场、平台、产品、运营目标、参考账号和客户问题，生成可执行的月度内容策略、周度选题、单条内容创意和平台适配建议。",
+        "你是 WINTEMP 品牌运营部的社媒内容策略与创意规划 Agent。请聚焦南美与中东 B 端市场，根据平台、产品、运营目标、目标受众和客户问题，生成适合招商、经销商开发和品牌专业形象建设的社媒内容策略、图片/文字创意方向和中英文社媒帖子文案。",
         inputSection([
           ["目标市场", value(values, "targetMarket")],
           ["账号类型", value(values, "accountType")],
           ["平台", value(values, "platforms")],
           ["目标产品", value(values, "products")],
-          ["内容月份", value(values, "contentMonth")],
           ["参考规划表主题", value(values, "planningThemes")],
           ["当前运营目标", value(values, "operationGoals")],
           ["目标受众", value(values, "audience")],
-          ["是否需要参考账号", value(values, "needReference")],
-          ["已有参考账号", value(values, "referenceAccounts")],
+          ["输出内容类型", value(values, "outputContentType")],
           ["内容风格偏好", value(values, "stylePreference")],
           ["需要输出的内容数量", value(values, "contentCount")],
           ["是否联动询盘反馈", value(values, "linkInquiry")],
           ["客户常问问题", value(values, "customerQuestions")],
-          ["输出语言", value(values, "outputLanguage")],
+          ["社媒帖子文案语言", value(values, "postCopyLanguage")],
           ["补充说明", value(values, "notes")]
         ]),
         section(
-          "账号定位建议",
-          `目标市场：${value(values, "targetMarket")}\n账号类型：${value(values, "accountType")}\n目标受众：${value(values, "audience")}\n核心内容方向：\n不适合发布的内容：\n平台角色说明：${value(values, "platforms")}`
+          "B 端账号定位建议",
+          `目标市场：${value(values, "targetMarket")}\n账号类型：${value(values, "accountType")}\n目标受众：${value(values, "audience")}\n核心内容方向：围绕经销商利润空间、产品稳定性、安装售后支持、应用场景和招商合作价值展开。\n不适合发布的内容：过度 C 端生活方式、无业务价值的娱乐内容、无法证明产品实力的空泛口号。\n平台角色说明：${value(values, "platforms")}`
         ),
         section(
-          "参考账号分析 Prompt",
-          "请根据 WINTEMP 的品牌、产品和目标市场，推荐适合参考的海外企业或社媒账号类型。\n\n请从以下角度分析：\n1. 哪类品牌或账号值得参考\n2. 这些账号适合参考什么内容形式\n3. 可以借鉴的选题角度\n4. 可以借鉴的画面风格\n5. 可以借鉴的视频结构\n6. 不应直接复制的部分\n7. WINTEMP 可以如何转化为自己的内容"
+          "平台内容策略",
+          `请分别说明以下平台适合承担的 B 端内容角色：${value(values, "platforms")}\n\n请从以下角度输出：\n1. 平台适合的内容目标\n2. 适合发布图片还是文字\n3. 适合的产品展示方式\n4. 适合的招商信息表达方式\n5. 不建议发布的内容类型`
         ),
         section(
-          "月度内容主题建议",
-          `主题 1：\n适合平台：${value(values, "platforms")}\n适合产品：${value(values, "products")}\n目标受众：${value(values, "audience")}\n内容目标：${value(values, "operationGoals")}\n推荐形式：\n\n主题 2：\n适合平台：${value(values, "platforms")}\n适合产品：${value(values, "products")}\n目标受众：${value(values, "audience")}\n内容目标：${value(values, "operationGoals")}\n推荐形式：`
+          "内容主题建议",
+          `请输出适合 ${value(values, "targetMarket")} 的 B 端内容主题。\n\n每个主题包含：\n- 主题名称\n- 适合平台：${value(values, "platforms")}\n- 适合产品：${value(values, "products")}\n- 目标受众：${value(values, "audience")}\n- 内容目标：${value(values, "operationGoals")}\n- 推荐内容类型：${value(values, "outputContentType")}\n- 适合的视觉/文案风格：${value(values, "stylePreference")}`
         ),
         section(
-          "周度内容规划",
-          "第 1 周：\n- 内容主题\n- 推荐平台\n- 内容形式\n- 产品重点\n- 目标\n\n第 2 周：\n- 内容主题\n- 推荐平台\n- 内容形式\n- 产品重点\n- 目标\n\n第 3 周：\n- 内容主题\n- 推荐平台\n- 内容形式\n- 产品重点\n- 目标\n\n第 4 周：\n- 内容主题\n- 推荐平台\n- 内容形式\n- 产品重点\n- 目标"
+          "图片内容方向",
+          `如果输出类型包含图片，请为每条内容给出可执行的图片方向：\n- 图片主题\n- 产品：${value(values, "products")}\n- 画面场景\n- 构图建议\n- 必须展示的产品/应用元素\n- WINTEMP 品牌橙色如何点亮画面\n- 是否适合联动产品营销场景图生成 Agent`
         ),
         section(
-          "单条内容创意",
-          `请输出 ${value(values, "contentCount")} 条内容创意。每条按以下格式：\n\n内容标题：\n适合平台：\n目标市场：${value(values, "targetMarket")}\n目标受众：${value(values, "audience")}\n产品：${value(values, "products")}\n内容形式：\n核心卖点：\n画面建议：\n文案方向：\nCTA：\n是否适合做短视频：\n是否适合做图片帖：\n是否适合改成 Blog / LinkedIn：`
+          "社媒帖子文案",
+          `请输出 ${value(values, "contentCount")} 条社媒帖子文案，语言必须为中英文。每条按以下格式：\n\n内容标题：\n适合平台：\n目标市场：${value(values, "targetMarket")}\n目标受众：${value(values, "audience")}\n产品：${value(values, "products")}\n内容类型：${value(values, "outputContentType")}\n核心卖点：\n中文文案：\nEnglish Copy：\n中文 CTA：\nEnglish CTA：\nHashtags / Tags：\n图片建议：\n是否适合 LinkedIn 长文改写：`
+        ),
+        section(
+          "B 端转化建议",
+          `请结合 ${value(values, "operationGoals")}，输出：\n- 哪些内容更适合获取询盘\n- 哪些内容更适合建立品牌专业度\n- 哪些内容更适合招商合作\n- 每个平台建议的发布节奏\n- 是否需要联动询盘反馈：${value(values, "linkInquiry")}\n- 可从客户常问问题中转化出的选题：${value(values, "customerQuestions")}`
         ),
         section(
           "可联动 Agent",
