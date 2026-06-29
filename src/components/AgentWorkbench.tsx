@@ -100,7 +100,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
     if (field.type === "textarea") {
       return (
         <textarea
-          className={`min-h-32 w-full resize-y rounded-2xl border border-slate-200 bg-[#f7f7f5] px-4 py-3 text-sm leading-6 text-wintemp-ink ${commonFocus}`}
+          className={`min-h-32 w-full resize-y rounded-2xl border border-wintemp-line bg-wintemp-cloud px-4 py-3 text-sm leading-6 text-wintemp-ink ${commonFocus}`}
           placeholder={field.placeholder}
           value={values[field.name] ?? ""}
           onChange={(event) => updateValue(field.name, event.target.value)}
@@ -111,7 +111,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
     if (field.type === "select") {
       return (
         <select
-          className={`h-11 w-full rounded-2xl border border-slate-200 bg-[#f7f7f5] px-4 text-sm text-wintemp-ink ${commonFocus}`}
+          className={`h-11 w-full rounded-2xl border border-wintemp-line bg-wintemp-cloud px-4 text-sm text-wintemp-ink ${commonFocus}`}
           value={values[field.name] ?? ""}
           onChange={(event) => updateValue(field.name, event.target.value)}
         >
@@ -135,7 +135,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           {field.options?.map((option) => (
             <label
               key={option}
-              className="flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-[#f7f7f5] px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-wintemp-200 hover:bg-wintemp-50"
+              className="flex cursor-pointer items-center gap-2 rounded-2xl border border-wintemp-line bg-wintemp-cloud px-3 py-2 text-sm font-bold text-wintemp-steel transition hover:border-wintemp-200 hover:bg-wintemp-50"
             >
               <input
                 type="checkbox"
@@ -156,7 +156,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           {field.options?.map((option) => (
             <label
               key={option}
-              className="flex cursor-pointer items-center gap-2 rounded-2xl border border-slate-200 bg-[#f7f7f5] px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-wintemp-200 hover:bg-wintemp-50"
+              className="flex cursor-pointer items-center gap-2 rounded-2xl border border-wintemp-line bg-wintemp-cloud px-3 py-2 text-sm font-bold text-wintemp-steel transition hover:border-wintemp-200 hover:bg-wintemp-50"
             >
               <input
                 type="radio"
@@ -176,7 +176,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
       return (
         <div>
           <input
-            className={`w-full rounded-2xl border border-dashed border-slate-300 bg-[#f7f7f5] px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-wintemp-50 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-wintemp-700 ${commonFocus}`}
+            className={`w-full rounded-2xl border border-dashed border-wintemp-line bg-wintemp-cloud px-4 py-3 text-sm text-wintemp-steel file:mr-4 file:rounded-full file:border-0 file:bg-wintemp-50 file:px-3 file:py-2 file:text-sm file:font-bold file:text-wintemp-700 ${commonFocus}`}
             type="file"
             accept={getAccept(field)}
             onChange={(event) =>
@@ -184,7 +184,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
             }
           />
           <p className="mt-2 text-xs text-slate-500">
-            第一版仅记录文件名，不解析文件内容。
+            当前版本记录文件名；如使用图片生成，会优先根据表单 Prompt 生成。
             {values[field.name] ? ` 已选择：${values[field.name]}` : null}
           </p>
         </div>
@@ -193,7 +193,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
 
     return (
       <input
-        className={`h-11 w-full rounded-2xl border border-slate-200 bg-[#f7f7f5] px-4 text-sm text-wintemp-ink placeholder:text-slate-400 ${commonFocus}`}
+        className={`h-11 w-full rounded-2xl border border-wintemp-line bg-wintemp-cloud px-4 text-sm text-wintemp-ink placeholder:text-wintemp-gray ${commonFocus}`}
         type={
           field.type === "month"
             ? "month"
@@ -308,26 +308,26 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
   };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(480px,1.05fr)]">
-      <section className="rounded-3xl border border-white bg-white p-6 shadow-dashboard">
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(500px,1.08fr)]">
+      <section className="rounded-[30px] border border-wintemp-line bg-white p-6 shadow-soft">
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-wintemp-600">
+            <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-wintemp-600">
               Input Form
             </p>
-            <h2 className="mt-2 text-xl font-semibold text-wintemp-ink">
+            <h2 className="mt-2 text-2xl font-extrabold text-wintemp-ink">
               任务信息
             </h2>
           </div>
-          <span className="rounded-full bg-wintemp-50 px-3 py-1 text-xs font-semibold text-wintemp-700">
-            Mock Rules
+          <span className="rounded-full border border-wintemp-200 bg-wintemp-50 px-3 py-1 text-xs font-extrabold text-wintemp-700">
+            Brand Input
           </span>
         </div>
 
         <div className="space-y-5">
           {agent.fields.map((field) => (
             <label key={field.name} className="block">
-              <span className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-800">
+              <span className="mb-2 flex items-center gap-2 text-sm font-extrabold text-wintemp-steel">
                 {field.label}
                 {field.required ? (
                   <span className="text-wintemp-600">*</span>
@@ -338,14 +338,14 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           ))}
         </div>
 
-        <p className="mt-6 rounded-2xl bg-wintemp-50 p-4 text-sm leading-6 text-wintemp-700">
+        <p className="mt-6 rounded-2xl border border-wintemp-200 bg-wintemp-50 p-4 text-sm leading-6 text-wintemp-700">
           {CURRENT_VERSION_NOTE}
         </p>
 
         <div className="mt-7 flex flex-wrap gap-3">
           <button
             type="button"
-            className="rounded-full bg-wintemp-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-wintemp-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-wintemp-600 px-5 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:bg-wintemp-700 disabled:cursor-not-allowed disabled:bg-wintemp-line"
             disabled={!hasRequiredValues}
             onClick={generatePrompt}
           >
@@ -353,7 +353,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           </button>
           <button
             type="button"
-            className="rounded-full bg-wintemp-ink px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2427] disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-wintemp-ink px-5 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:bg-wintemp-steel disabled:cursor-not-allowed disabled:bg-wintemp-line"
             disabled={!hasRequiredValues || aiLoading}
             onClick={callAI}
           >
@@ -362,7 +362,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           {canGenerateImage ? (
             <button
               type="button"
-              className="rounded-full bg-[#0f8f5f] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0b744d] disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="rounded-full bg-[#0f8f5f] px-5 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#0b744d] disabled:cursor-not-allowed disabled:bg-wintemp-line"
               disabled={!hasRequiredValues || imageLoading}
               onClick={generateImage}
             >
@@ -371,7 +371,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           ) : null}
           <button
             type="button"
-            className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+            className="rounded-full border border-wintemp-line bg-white px-5 py-2.5 text-sm font-extrabold text-wintemp-steel transition hover:border-wintemp-200 hover:bg-wintemp-cloud"
             onClick={reset}
           >
             Reset
@@ -379,19 +379,19 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-wintemp-200 bg-wintemp-ink p-6 shadow-brand">
+      <section className="rounded-[30px] border border-wintemp-steel bg-wintemp-ink p-6 shadow-dashboard">
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-wintemp-200">
-              Prompt Output
+            <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-wintemp-200">
+              Output Desk
             </p>
-            <h2 className="mt-2 text-xl font-semibold text-white">
+            <h2 className="mt-2 text-2xl font-extrabold text-white">
               {agent.outputTitle}
             </h2>
           </div>
           <button
             type="button"
-            className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:text-slate-500"
+            className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-extrabold text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:text-white/35"
             disabled={!output}
             onClick={copy}
           >
@@ -399,7 +399,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           </button>
         </div>
 
-        <div className="min-h-[520px] rounded-2xl border border-white/10 bg-[#252a2d] p-4">
+        <div className="min-h-[560px] rounded-2xl border border-white/10 bg-[#3b3e3f] p-4">
           {generatedImages.length ? (
             <div className="space-y-5">
               <div className="grid gap-4">
@@ -409,7 +409,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
                   return (
                     <div
                       key={`${src}-${index}`}
-                      className="overflow-hidden rounded-2xl border border-white/10 bg-black/20"
+                      className="overflow-hidden rounded-2xl border border-white/10 bg-white/5"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -434,7 +434,7 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
                   );
                 })}
               </div>
-              <details className="rounded-2xl border border-white/10 bg-black/10 p-4">
+              <details className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <summary className="cursor-pointer text-sm font-semibold text-white">
                   查看本次图片 Prompt
                 </summary>
@@ -450,11 +450,11 @@ export function AgentWorkbench({ slug }: AgentWorkbenchProps) {
           ) : (
             <div className="flex min-h-[488px] items-center justify-center text-center">
               <div>
-                <p className="text-sm font-medium text-slate-300">
+                <p className="text-sm font-bold text-slate-200">
                   填写左侧表单后生成结构化 Prompt
                 </p>
                 <p className="mt-2 text-xs text-slate-500">
-                  第一版仅使用 mock data 和静态规则，不连接任何外部 API。
+                  可先生成 Prompt，也可以调用已配置的 AI API；营销场景图 Agent 支持直接生成图片。
                 </p>
               </div>
             </div>

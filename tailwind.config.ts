@@ -9,19 +9,23 @@ const config: Config = {
     extend: {
       colors: {
         wintemp: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          500: "#f97316",
-          600: "#ff6b00",
-          700: "#e65300",
-          gray: "#9b9b9b",
-          ink: "#2f3437"
+          50: "#fff4ec",
+          100: "#ffe5d3",
+          200: "#ffc7a1",
+          500: "#ff7a1a",
+          600: "#ff6d08",
+          700: "#e75b00",
+          gray: "#a5a3a3",
+          line: "#dfdfdf",
+          cloud: "#f8fafa",
+          steel: "#3b3e3f",
+          ink: "#333230"
         }
       },
       boxShadow: {
-        dashboard: "0 20px 55px rgba(47, 52, 55, 0.08)",
-        brand: "0 24px 80px rgba(255, 107, 0, 0.14)"
+        dashboard: "0 22px 70px rgba(51, 50, 48, 0.08)",
+        brand: "0 28px 90px rgba(255, 109, 8, 0.16)",
+        soft: "0 12px 36px rgba(51, 50, 48, 0.06)"
       }
     }
   },

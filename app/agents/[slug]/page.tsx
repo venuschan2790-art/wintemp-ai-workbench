@@ -46,57 +46,58 @@ export default function AgentPage({ params }: AgentPageProps) {
   }
 
   return (
-    <main className="min-h-screen px-8 py-7">
-      <div className="mx-auto max-w-7xl">
-        <header className="mb-8 rounded-3xl border border-white bg-white/85 p-6 shadow-sm backdrop-blur">
-          <div className="mb-7 flex items-center justify-between">
+    <main className="min-h-screen px-6 py-6 lg:px-8">
+      <div className="mx-auto max-w-[1440px]">
+        <header className="mb-8 overflow-hidden rounded-[34px] border border-wintemp-line bg-white/92 p-6 shadow-dashboard backdrop-blur">
+          <div className="mb-8 flex items-center justify-between">
             <Link
               href="/"
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-wintemp-200 hover:text-wintemp-700"
+              className="rounded-full border border-wintemp-line bg-white px-4 py-2 text-sm font-bold text-wintemp-steel transition hover:border-wintemp-200 hover:text-wintemp-700"
             >
               &lt;- 返回首页
             </Link>
-            <span className="rounded-full border border-wintemp-200 bg-wintemp-50 px-4 py-2 text-sm font-semibold text-wintemp-700">
+            <span className="rounded-full border border-wintemp-200 bg-wintemp-50 px-4 py-2 text-sm font-extrabold text-wintemp-700">
               {agent.category}
             </span>
           </div>
 
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_420px]">
             <div>
               <Image
                 src="/wintemp-logo.jpg"
                 alt="Wintemp"
                 width={520}
                 height={165}
-                className="mb-6 h-16 w-64 object-contain object-left"
+                className="mb-8 h-14 w-60 object-contain object-left"
               />
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-wintemp-600">
-                Prompt Generator v1.0
+              <p className="text-xs font-extrabold uppercase tracking-[0.3em] text-wintemp-600">
+                WINTEMP AI Workflow
               </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight text-wintemp-ink">
+              <h1 className="mt-4 max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight text-wintemp-ink">
                 {agent.title}
               </h1>
-              <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+              <p className="mt-5 max-w-4xl text-lg leading-8 text-[#626668]">
                 {agent.description}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-100 bg-[#f7f7f5] p-5 shadow-sm">
-              <p className="text-sm font-semibold text-wintemp-ink">
+            <div className="relative overflow-hidden rounded-[28px] border border-wintemp-line bg-wintemp-cloud p-6 shadow-soft">
+              <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-[54px] bg-wintemp-100" />
+              <p className="relative text-sm font-extrabold text-wintemp-ink">
                 当前版本能力
               </p>
-              <div className="mt-4 space-y-3 text-sm text-slate-600">
+              <div className="relative mt-5 space-y-4 text-sm text-[#626668]">
                 <div className="flex items-center justify-between gap-4">
                   <span>Prompt 生成</span>
-                  <span className="font-semibold text-wintemp-700">Enabled</span>
+                  <span className="font-extrabold text-wintemp-700">Enabled</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span>{aiProvider}</span>
                   <span
                     className={
                       hasAIKey
-                        ? "font-semibold text-wintemp-700"
-                        : "font-semibold text-slate-400"
+                        ? "font-extrabold text-wintemp-700"
+                        : "font-extrabold text-wintemp-gray"
                     }
                   >
                     {hasAIKey ? "Ready" : "Not Connected"}
@@ -104,10 +105,10 @@ export default function AgentPage({ params }: AgentPageProps) {
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span>平台后台数据</span>
-                  <span className="font-semibold text-slate-400">Mock Only</span>
+                  <span className="font-extrabold text-wintemp-gray">Mock Only</span>
                 </div>
               </div>
-              <p className="mt-5 rounded-xl bg-white p-3 text-xs leading-5 text-slate-500">
+              <p className="relative mt-6 rounded-2xl bg-white p-4 text-xs leading-5 text-[#707476]">
                 {CURRENT_VERSION_NOTE}
               </p>
             </div>
