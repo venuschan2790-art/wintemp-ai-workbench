@@ -273,7 +273,7 @@ export const agents: AgentConfig[] = [
     title: "社媒内容策略与创意规划 Agent",
     shortTitle: "内容策略规划",
     description:
-      "用于帮助品牌运营人员围绕南美与中东 B 端市场，基于 WINTEMP 产品、渠道客户需求和社媒平台特点，生成招商向内容策略、图片/文字创意方向和中英文社媒帖子文案。",
+      "用于帮助品牌运营人员围绕南美与中东 B 端市场，基于 WINTEMP 产品、渠道客户需求和社媒平台特点，生成招商向内容策略、产品帖角度、短视频创意脚本和中英文线索转化文案。",
     category: "Content Planning",
     badge: "IDEA",
     outputTitle: "内容策略规划 Prompt",
@@ -414,7 +414,7 @@ export const agents: AgentConfig[] = [
     },
     buildPrompt: (values) =>
       [
-        "你是 WINTEMP 品牌运营部的社媒内容策略与创意规划 Agent。请聚焦南美与中东 B 端市场，根据平台、产品、运营目标、目标受众和客户问题，生成适合招商、经销商开发和品牌专业形象建设的社媒内容策略、图片/文字创意方向和中英文社媒帖子文案。",
+        "你是 WINTEMP 品牌运营部的社媒内容策略与创意规划 Agent。请聚焦南美与中东 B 端市场，根据平台、产品、运营目标、目标受众和客户问题，生成适合招商、经销商开发、项目采购和品牌专业形象建设的社媒内容策略、产品帖角度、图片/文字创意方向、短视频创意脚本和中英文线索转化文案。\n\n重要策略：所有产品相关内容都必须转化为 lead-generation / partnership-oriented content idea，不要只介绍产品功能。每条产品帖都必须回答：1. 这是什么产品；2. 谁应该销售或使用它；3. 它有什么 B2B 商业价值；4. 如何引导用户填写表单或咨询合作机会。",
         inputSection([
           ["目标市场", value(values, "targetMarket")],
           ["账号类型", value(values, "accountType")],
@@ -432,28 +432,38 @@ export const agents: AgentConfig[] = [
           ["补充说明", value(values, "notes")]
         ]),
         section(
-          "B 端账号定位建议",
-          `目标市场：${value(values, "targetMarket")}\n账号类型：${value(values, "accountType")}\n目标受众：${value(values, "audience")}\n核心内容方向：围绕经销商利润空间、产品稳定性、安装售后支持、应用场景和招商合作价值展开。\n不适合发布的内容：过度 C 端生活方式、无业务价值的娱乐内容、无法证明产品实力的空泛口号。\n平台角色说明：${value(values, "platforms")}`
+          "固定产品帖内容逻辑",
+          `每条产品帖必须按以下逻辑生成，不允许只写产品功能介绍：\n\n1. What the product is\n- 产品是什么：${value(values, "products")}\n\n2. Who should sell it or use it\n- 面向对象：${value(values, "audience")}\n- 内容需明确连接 distributors, kitchen suppliers, contractors, hotels, commercial spaces, project suppliers, small business buyers 等 B2B 角色。\n\n3. What the business value is\n- 需要说明产品如何帮助渠道客户、项目买家或合作伙伴创造业务价值，例如补充产品线、适配商业空间、满足工程采购、提升项目方案完整度或创造合作机会。\n\n4. Clear CTA\n- 每条内容都必须包含线索转化 CTA，例如：Fill out the form to learn more about WINTEMP partnership opportunities.`
         ),
         section(
-          "平台内容策略",
-          `请分别说明以下平台适合承担的 B 端内容角色：${value(values, "platforms")}\n\n请从以下角度输出：\n1. 平台适合的内容目标\n2. 适合发布图片还是文字\n3. 适合的产品展示方式\n4. 适合的招商信息表达方式\n5. 不建议发布的内容类型`
+          "B 端账号定位与平台策略",
+          `目标市场：${value(values, "targetMarket")}\n账号类型：${value(values, "accountType")}\n目标受众：${value(values, "audience")}\n核心内容方向：围绕经销商利润空间、产品稳定性、安装售后支持、应用场景、项目供应价值和招商合作机会展开。\n不适合发布的内容：过度 C 端生活方式、无业务价值的娱乐内容、无法证明产品实力的空泛口号、没有表单或询盘目的的 CTA。\n平台角色说明：${value(values, "platforms")}\n\n请分别说明以下平台适合承担的 B 端内容角色：${value(values, "platforms")}\n\n请从以下角度输出：\n1. 平台适合的内容目标\n2. 适合发布图片还是文字\n3. 适合的产品展示方式\n4. 适合的招商信息表达方式\n5. 不建议发布的内容类型`
         ),
         section(
-          "内容主题建议",
-          `请输出适合 ${value(values, "targetMarket")} 的 B 端内容主题。\n\n每个主题包含：\n- 主题名称\n- 适合平台：${value(values, "platforms")}\n- 适合产品：${value(values, "products")}\n- 目标受众：${value(values, "audience")}\n- 内容目标：${value(values, "operationGoals")}\n- 推荐内容类型：${value(values, "outputContentType")}\n- 适合的视觉/文案风格：${value(values, "stylePreference")}`
+          "产品帖策略角度",
+          `请基于 ${value(values, "products")} 输出适合 ${value(values, "targetMarket")} 的产品帖策略角度。\n\n每个角度必须包含：\n- Product post strategy angle\n- 产品是什么\n- 谁应该销售或使用它\n- B2B 商业价值\n- 适合平台：${value(values, "platforms")}\n- 目标受众：${value(values, "audience")}\n- 内容目标：${value(values, "operationGoals")}\n- 推荐内容类型：${value(values, "outputContentType")}\n- 适合的视觉/文案风格：${value(values, "stylePreference")}`
         ),
         section(
-          "图片内容方向",
-          `如果输出类型包含图片，请为每条内容给出可执行的图片方向：\n- 图片主题\n- 产品：${value(values, "products")}\n- 画面场景\n- 构图建议\n- 必须展示的产品/应用元素\n- WINTEMP 品牌橙色如何点亮画面\n- 是否适合联动产品营销场景图生成 Agent`
+          "B2B 内容创意输出结构",
+          `请输出 ${value(values, "contentCount")} 条 B2B-oriented content ideas。每条必须严格按以下结构：\n\n1. Product post strategy angle\n- 用一句话说明这条产品内容从什么招商/合作/项目采购角度切入。\n\n2. B2B content idea\n- 说明这条内容如何面向 distributors, kitchen suppliers, contractors, hotels, commercial spaces, project suppliers, small business buyers 等 B2B 角色。\n- 不要只描述功能，要解释为什么对渠道或项目买家有商业价值。\n\n3. Social media caption idea\n- 中文文案：\n- English Copy：\n- Hashtags / Tags：\n\n4. Visual direction\n- 图片主题\n- 产品：${value(values, "products")}\n- 画面场景\n- 构图建议\n- 必须展示的产品/应用元素\n- WINTEMP 品牌橙色如何点亮画面\n\n5. Short video creative script idea\n- Opening hook\n- Scene setup\n- Product reveal\n- B2B value explanation\n- Lead-generation CTA\n\n6. Lead-generation CTA\n- 中文 CTA：\n- English CTA：\n- 必须引导填写表单、咨询合作、了解 WINTEMP partnership opportunities 或获取项目供货信息。\n\n7. Optional form ad angle\n- 表单广告标题\n- 表单广告说明\n- 表单收集意图\n- 适合投放平台`
         ),
         section(
-          "社媒帖子文案",
-          `请输出 ${value(values, "contentCount")} 条社媒帖子文案，语言必须为中英文。每条按以下格式：\n\n内容标题：\n适合平台：\n目标市场：${value(values, "targetMarket")}\n目标受众：${value(values, "audience")}\n产品：${value(values, "products")}\n内容类型：${value(values, "outputContentType")}\n核心卖点：\n中文文案：\nEnglish Copy：\n中文 CTA：\nEnglish CTA：\nHashtags / Tags：\n图片建议：\n是否适合 LinkedIn 长文改写：`
+          "社媒帖子文案要求",
+          `社媒帖子文案语言：${value(values, "postCopyLanguage")}\n\n每条 caption 必须：\n- 先说明产品是什么\n- 再说明适合哪些 B2B 销售者、使用者或采购者\n- 再说明商业价值\n- 最后给出明确线索转化 CTA\n- 带 Hashtags / Tags\n- 保持 B2B 专业语气，避免过度 C 端消费化表达`
         ),
         section(
           "B 端转化建议",
           `请结合 ${value(values, "operationGoals")}，输出：\n- 哪些内容更适合获取询盘\n- 哪些内容更适合建立品牌专业度\n- 哪些内容更适合招商合作\n- 每个平台建议的发布节奏\n- 是否需要联动询盘反馈：${value(values, "linkInquiry")}\n- 可从客户常问问题中转化出的选题：${value(values, "customerQuestions")}`
+        ),
+        section(
+          "避免事项",
+          [
+            "不要只描述产品功能",
+            "当目标市场为 B2B 时，不要写成过度 C 端消费者口吻",
+            "不要写没有商业价值的泛泛口号",
+            "不要使用没有线索转化目的的 CTA",
+            "不要写过度技术化但没有解释对经销商或项目买家有什么意义的内容"
+          ]
         ),
         section(
           "可联动 Agent",
